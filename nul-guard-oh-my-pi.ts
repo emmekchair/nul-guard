@@ -58,7 +58,9 @@ export default function (pi: ExtensionAPI) {
 
     // -- write/edit: block Windows reserved filenames --
     if (event.toolName === "write" || event.toolName === "edit") {
-      const filePath = event.input.path as string;
+      const input = event.input as Record<string, unknown>;
+      const filePath = typeof input?.path === "string" ? input.path : "";
+      if (!filePath) return;
       const filename = filePath.split(/[/\\]/).pop() ?? "";
 
       if (RESERVED_FILE_RE.test(filename)) {
