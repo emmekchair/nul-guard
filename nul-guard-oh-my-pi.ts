@@ -34,8 +34,6 @@ const CLEANUP_HINT =
 export default function (pi: ExtensionAPI) {
   if (process.platform !== "win32") return;
 
-  pi.setLabel("NUL Guard");
-
   // ── Intercept tool calls ──
 
   pi.on("tool_call", async (event, ctx) => {
